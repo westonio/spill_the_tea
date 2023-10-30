@@ -44,7 +44,7 @@ gem 'jsonapi-serializer'
 
 group :development, :test do
   gem 'debug', platforms: %i[ mri mingw x64_mingw ]
-  gem 'factory_bot', '~> 6.3'
+  gem 'factory_bot_rails'
   gem "faker", "~> 3.2"
   gem 'pry'
   gem 'rspec-rails'
