@@ -10,7 +10,7 @@ class Subscription < ApplicationRecord
   belongs_to :customer
   belongs_to :tea
  
-  enum status: [:active, :paused, :canceled]
+  enum status: [:active, :canceled]
   enum frequency: [:weekly, :monthly, :quarterly, :annually]
 
   validate :cannot_already_exist, on: :create
