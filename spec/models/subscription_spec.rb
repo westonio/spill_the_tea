@@ -22,7 +22,13 @@ RSpec.describe Subscription, type: :model do
 
     it 'exists' do
       expect(subscription).to be_a(Subscription)
-      
+    end
+
+    it 'has title, price, frequency, and status' do
+      expect(subscription.title).to eq('Monthly Tea is Fundamental')
+      expect(subscription.price).to eq(9.99)
+      expect(subscription.frequency).to eq('monthly')
+      expect(subscription.status).to eq('active')
     end
   end
 end
