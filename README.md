@@ -1,24 +1,70 @@
-# README
+# Spilled Tea - Subscription Service API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
 
-Things you may want to cover:
+### JSON Contract
+<details>
+  <summary> <b>POST api/v0/subscriptions </b></summary><br/>
 
-* Ruby version
+Description: Create a new subscription.
 
-* System dependencies
+Requirements: Must provide valid data and datatypes as follows:
+- title [String]
+- price [Float]
+- frequency [Integer] (Options: 0 = weekly, 1 = monthly, 2 = qu
+arterly, 3 = annually)
+- customer_id [Integer]
+- tea_id [Integer]
+<br/><br/>
 
-* Configuration
+Request Body Example:
 
-* Database creation
+```
+{
+  "title": "Monthly Tea is Fundamental",
+  "price": 9.99,
+  "frequency": 1,
+  "customer_id": 1,
+  "tea_id": 7
+}
+```
+---
+<details>
+<summary>Successful Response Example:</summary>
 
-* Database initialization
+```
+{
+  "data": {
+    "id": "1",
+    "type": "subscription",
+    "attributes": {
+      "title": "Monthly Tea is Fundamental",
+      "price": 9.99,
+      "status": "active",
+      "frequency": "monthly",
+      "tea_id": 7,
+      "customer_id": 1
+    }
+  }
+}
+```
 
-* How to run the test suite
+**Status Code:** 
 
-* Services (job queues, cache servers, search engines, etc.)
+The subscription has not been successfully created due to invalid ids, invalid data types, or missing values. The response contains the detailed error message.
+</details>
 
-* Deployment instructions
+---
+<details>
+<summary>Error Response Example:</summary>
 
-* ...
+```
+{
+  
+}
+```
+
+**Status Code:** 201 (Created) 
+
+The subscription has been successfully created. The response contains the newly created subscription's details with the status set to "active" as a default.
+</details>
