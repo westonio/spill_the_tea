@@ -12,4 +12,13 @@ class Subscription < ApplicationRecord
  
   enum status: [:active, :paused, :canceled]
   enum frequency: [:weekly, :monthly, :quarterly, :annually]
+
+  validate :cannot_already_exist, on: :create
+  
+private
+  def cannot_already_exist
+    if Subscription.exists?(customer_id: customer_id, tea_id: tea_id)
+      errors.add(:base, "Subscription with customer_id=#{customer.id} and tea_id=#{tea.id} already exists")
+    end
+  end
 end
