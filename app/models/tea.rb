@@ -4,5 +4,5 @@ class Tea < ApplicationRecord
                         :brew_temp,
                         :brew_time
 
-  belongs_to :subscription
+  has_many :subscriptions
 end

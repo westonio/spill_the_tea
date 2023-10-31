@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Subscription, type: :model do
-    let(:subscription) { Subscription.create!(title: 'Monthly Tea is Fundamental', price: 9.99, frequency: 1, status: 0) }
   describe 'Associations' do
-     it { should have_one :tea }
+     it { should belong_to :tea }
      it { should belong_to :customer }
   end
 
@@ -18,7 +17,8 @@ RSpec.describe Subscription, type: :model do
 
   describe 'Instance Methods' do
     let(:customer) { create(:customer) }
-    let(:subscription) { Subscription.create!(title: 'Monthly Tea is Fundamental', price: 9.99, frequency: 1, status: 0, customer_id: customer.id) }
+    let(:tea) { create(:tea) }
+    let(:subscription) { Subscription.create!(title: 'Monthly Tea is Fundamental', price: 9.99, frequency: 1, status: 0, customer_id: customer.id, tea_id: tea.id) }
 
     it 'exists' do
       expect(subscription).to be_a(Subscription)

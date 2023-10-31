@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Tea, type: :model do
   describe 'Associations' do
-    it { should belong_to :subscription }
+    it { should have_many :subscriptions }
   end
 
   describe 'Validations' do
@@ -14,8 +14,8 @@ RSpec.describe Tea, type: :model do
 
   describe 'Instance Methods' do
     let (:customer) { create(:customer) }
+    let (:tea) { Tea.create!(name: '50 Shades of Earl Grey', description: "The best earl grey you'll ever taste.", brew_temp: '212 degrees', brew_time: '1 to 2 minutes') }
     let (:subscription) { create(:subscription, customer_id: customer.id) }
-    let (:tea) { Tea.create!(name: '50 Shades of Earl Grey', description: "The best earl grey you'll ever taste.", brew_temp: '212 degrees', brew_time: '1 to 2 minutes', subscription_id: subscription.id) }
     
     it 'exists' do
       expect(tea).to be_a(Tea)

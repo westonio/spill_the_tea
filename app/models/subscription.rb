@@ -8,7 +8,7 @@ class Subscription < ApplicationRecord
   validates_numericality_of :price
 
   belongs_to :customer
-  has_one :tea
+  belongs_to :tea
  
   enum status: [:active, :paused, :canceled]
   enum frequency: [:weekly, :monthly, :quarterly, :annually]

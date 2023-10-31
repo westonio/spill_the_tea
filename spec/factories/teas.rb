@@ -4,6 +4,5 @@ FactoryBot.define do
     description { Faker::Tea.type }
     brew_temp { "180-105 Degrees" }
     brew_time { "1-2 minutes" }
-    subscription_id { nil }
   end
 end
