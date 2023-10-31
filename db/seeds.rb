@@ -1,7 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+Customer.destroy_all
+Tea.destroy_all
+Subscription.destroy_all
+
+Customer.create(name: "Mimi Imfurst", email: "jaimee@carroll.test", address: "3971 Karissa Mountains, North Charita, MT 67591-7763")
+Customer.create(name: "Roxxxy Andrews", email: "lou_schulist@baumbach.test", address: "Apt. 966 432 Michal Harbor, Hansenfort, AZ 90846-7109")
+Customer.create(name: "Mercedes Iman Diamond", email: "milan_collier@roberts.test", address: "Suite 562 62545 Melania Mills, Turcotteburgh, ME 15020")
+
+Tea.create(name: "Kangra", description: "Herbal", brew_temp: "180-195 Degrees", brew_time: "1-2 minutes")
+
+Tea.create(name: "Shui Jin Gui", description: "White", brew_temp: "180-185 Degrees", brew_time: "2-3 minutes")
+Tea.create(name: "Boldo", description: "Oolong", brew_temp: "212 Degrees", brew_time: "1-2 minutes")
+Tea.create(name: "Biluochun", description: "Black", brew_temp: "195-212 Degrees", brew_time: "1-2 minutes")
+Tea.create(name: "Gyokuro", description: "Herbal", brew_temp: "180-195 Degrees", brew_time: "1-2 minutes")
+Tea.create(name: "Fujian New Craft", description: "Oolong", brew_temp: "212 Degrees", brew_time: "1-2 minutes")
+Tea.create( name: "Ruan Zhi", description: "Herbal", brew_temp: "180-195 Degrees", brew_time: "1-2 minutes")
+Tea.create(name: "Bael Fruit", description: "Black", brew_temp: "180-195 Degrees", brew_time: "3 minutes")
+Tea.create(name: "Huangjin Gui", description: "White", brew_temp: "180-195 Degrees", brew_time: "1 minutes")
+Tea.create(name: "Fujian New Craft", description: "Oolong", brew_temp: "200-210 Degrees", brew_time: "4 minutes")
