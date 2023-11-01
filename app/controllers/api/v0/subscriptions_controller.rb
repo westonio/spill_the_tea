@@ -1,5 +1,12 @@
 class Api::V0::SubscriptionsController < ApplicationController
-  def index; end
+  def index 
+    begin
+      customer = Customer.find(params[:customer_id])
+      render json: SubscriptionSerializer.new(customer.subscriptions), status: :ok
+    rescue StandardError => e
+      render json: ErrorSerializer.new(e).serialized_json, status: :not_found
+    end
+  end
 
   def show; end
 
