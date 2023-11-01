@@ -20,7 +20,9 @@ class Api::V0::SubscriptionsController < ApplicationController
 
   def update
     begin
-      render json: SubscriptionSerializer.new(Subscription.update!(subscription_params)), status: :ok
+      subscription = Subscription.find(params[:id])
+      subscription.update(subscription_params)
+      render json: SubscriptionSerializer.new(subscription), status: :ok
     rescue StandardError => e
       render json: ErrorSerializer.new(e).serialized_json, status: :bad_request
     end
