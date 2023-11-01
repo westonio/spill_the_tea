@@ -77,7 +77,7 @@ any changes. A new subscription for the same tea cannot be created.
 
   Description: Create a new subscription.
 
-  Requirements: Must provide valid data and datatypes as follows:
+  Requirements: Must provide valid data and datatypes as follows.
   - title [String]
   - price [Float]
   - frequency [Integer] (Options: 0 = weekly, 1 = monthly, 2 = quarterly, 3 = annually)
