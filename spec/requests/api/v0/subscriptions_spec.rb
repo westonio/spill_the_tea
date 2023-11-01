@@ -166,10 +166,9 @@ RSpec.describe 'Subscriptions Endpoints', type: :request do
 
         body = JSON.parse(response.body, symbolize_names: true)
 
-        expect(body[:data]).to be_an(Array)
-        expect(body[:data].first).to be_an(Hash)
+        expect(body[:data]).to be_an(Hash)
 
-        data = body[:data].first
+        data = body[:data]
 
         expect(data.keys).to eq([:id, :type, :attributes])
         expect(data[:id]).to be_a(String)
