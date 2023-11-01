@@ -4,6 +4,72 @@
 Spilled tea is a quick project done as a technical assessment to create a backend rails API for a tea subscription service based off of minimal details on the requirements.
 
 
+<br/>
+
+### Model Schema and Associations
+**Model Schema**
+```
+Customers
+- id (Primary Key | Integer)
+- name (String)
+- email (String)
+- address (String)
+- created_at (Datetime)
+- updated_at (Datetime)
+
+Teas
+- id (Primary Key | Integer)
+- name (String)
+- description (String)
+- brew_temp (String)
+- brew_time (String)
+- created_at (Datetime)
+- updated_at (Datetime)
+
+Subscriptions
+- id (Primary Key | Integer)
+- title (String)
+- price (Float)
+- status (Integer, Default: 0)
+- frequency (Integer)
+- customer_id (Foreign Key)
+- tea_id (Foreign Key)
+- created_at (Datetime)
+- updated_at (Datetime)
+```
+
+**Associations**
+```
+- Customers have many Subscriptions.
+- Teas have many Subscriptions.
+- Subscriptions belong to a Customer and a Tea
+```
+
+**Validations** - _The following lists the required data for creating each model object_
+```
+Customers
+- name (String)
+- email (String)
+- address (String)
+
+Teas
+- name (String)
+- description (String)
+- brew_temp (String)
+- brew_time (String)
+
+
+Subscriptions
+- title (String)
+- price (Float)
+- frequency (Integer)
+- customer_id (Foreign Key)
+- tea_id (Foreign Key)
+Uniqueness Note: If a customer already subscribes to a specific tea, the subscription must be updated to make any changes. A new subscription for the same tea cannot be created.
+```
+
+<br/>
+
 ### JSON Contract
 <details>
   <summary> <b>POST api/v0/subscriptions </b></summary><br/>
@@ -13,8 +79,7 @@ Spilled tea is a quick project done as a technical assessment to create a backen
   Requirements: Must provide valid data and datatypes as follows:
   - title [String]
   - price [Float]
-  - frequency [Integer] (Options: 0 = weekly, 1 = monthly, 2 = qu
-  arterly, 3 = annually)
+  - frequency [Integer] (Options: 0 = weekly, 1 = monthly, 2 = quarterly, 3 = annually)
   - customer_id [Integer]
   - tea_id [Integer]
   <br/><br/>
@@ -53,7 +118,7 @@ Spilled tea is a quick project done as a technical assessment to create a backen
 
     **Status Code:** 201 :created
 
-    The subscription has been successfully created. The response contains the newly created subscription's details with the status set to "active" as a default.
+    The subscription has been successfully created. The response contains the newly created subscription details with the status set to "active" as a default.
   </details>
 
   <details>
@@ -71,7 +136,7 @@ Spilled tea is a quick project done as a technical assessment to create a backen
 
     **Status Code:** 422 :unprocessable_entity
 
-    The subscription has not been successfully created due to invalid ids, invalid data types, or missing values. The response contains the detailed error message.
+    The subscription has not been successfully created due to invalid IDs, invalid data types, or missing values. The response contains a detailed error message.
   </details>
   <br/><br/><br/>
 </details>
@@ -87,12 +152,11 @@ Spilled tea is a quick project done as a technical assessment to create a backen
   * *If updating data of the subscription*
     - title [String]
     - price [Float]
-    - frequency [Integer] (Options: 0 = weekly, 1 = monthly, 2 = qu
-  arterly, 3 = annually)
+    - frequency [Integer] (Options: 0 = weekly, 1 = monthly, 2 = quarterly, 3 = annually)
     - customer_id [Integer]
     - tea_id [Integer]
 
-  * *If cancelling a subscription*
+  * *If canceling a subscription*
     - status [Integer] (Options: 0 = active, 1 = canceled)
 
   <br/><br/>
@@ -127,7 +191,7 @@ Spilled tea is a quick project done as a technical assessment to create a backen
 
     **Status Code:** 200 :ok
 
-    The subscription has been successfully updated with a status "canceled".
+    The subscription has been successfully updated with the status "canceled".
   </details>
 
   <details>
@@ -145,7 +209,7 @@ Spilled tea is a quick project done as a technical assessment to create a backen
 
     **Status Code:** 400 :bad_request 
 
-    The subscription has not been updated as an invalid status enums (integer) was used. Only the values 0 (active) and 1 (canceled) are allowed. The response contains the detailed error message.
+    The subscription has not been updated as an invalid status enums (integer) was used. Only the values 0 (active) and 1 (canceled) are allowed. The response contains a detailed error message.
   </details>
   <br/><br/><br/>
 </details>
@@ -160,7 +224,7 @@ Spilled tea is a quick project done as a technical assessment to create a backen
   Requirements: 
   * *Must pass a valid customer ID*
 
-  Request Body: No request body required
+  Request Body: No request body is required
 
   <br/>
   <details>
@@ -243,7 +307,7 @@ Spilled tea is a quick project done as a technical assessment to create a backen
 
     **Status Code:** 404 :not_found 
 
-    The customer ID was not found, so no records could be returned. The response contains the detailed error message.
+    The customer ID was not found, so no records could be returned. The response contains a detailed error message.
   </details>
 </details>
 
