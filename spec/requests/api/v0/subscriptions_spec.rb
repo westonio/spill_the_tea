@@ -78,7 +78,7 @@ RSpec.describe 'Subscriptions Endpoints', type: :request do
       end
     end
 
-      context 'When invalid attributes are used' do
+    context 'When invalid attributes are used' do
       it 'Sends error message and unprocessable entity code' do
         customer = create(:customer)
         tea = create(:tea)
@@ -107,6 +107,40 @@ RSpec.describe 'Subscriptions Endpoints', type: :request do
         expect(errors).to be_a(Hash)
         expect(errors).to have_key(:details)
         expect(errors[:details]).to eq("Validation failed: Title can't be blank")
+      end
+    end
+
+    context 'When a subscription already exists for the customer and tea' do
+      it 'Sends error message and unprocessable entity code' do
+        customer = create(:customer)
+        tea = create(:tea)
+        create(:subscription, customer_id: customer.id, tea_id: tea.id)
+
+        headers = { 'content-type' => 'application/json' }
+        params = {
+          customer_id: customer.id,
+          tea_id: tea.id,
+          title: "Tea of the quarter",
+          price: 24.99,
+          frequency: 2
+        }
+
+        post '/api/v0/subscriptions', headers: headers, params: JSON.generate(subscription: params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body).to be_a(Hash)
+        expect(body).to have_key(:errors)
+        expect(body[:errors]).to be_an(Array)
+
+        errors = body[:errors].first
+
+        expect(errors).to be_a(Hash)
+        expect(errors).to have_key(:details)
+        expect(errors[:details]).to eq("Validation failed: Subscription with customer_id=#{customer.id} and tea_id=#{tea.id} already exists")
       end
     end
   end
