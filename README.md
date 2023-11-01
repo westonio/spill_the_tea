@@ -65,7 +65,8 @@ Subscriptions
 - frequency (Integer) (Options: 0 = weekly, 1 = monthly, 2 = quarterly, 3 = annually)
 - customer_id (Foreign Key)
 - tea_id (Foreign Key)
-Uniqueness Note: If a customer already subscribes to a specific tea, the subscription must be updated to make any changes. A new subscription for the same tea cannot be created.
+Uniqueness Note: If a customer already subscribes to a specific tea, the subscription must be updated to make
+any changes. A new subscription for the same tea cannot be created.
 ```
 
 <br/>
