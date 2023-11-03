@@ -85,21 +85,26 @@ any changes. A new subscription for the same tea cannot be created.
   - tea_id [Integer]
   <br/><br/>
 
-  Request Body:
-
-  ```
-  {
-    "title": "Monthly Tea is Fundamental",
-    "price": 9.99,
-    "frequency": 1,
-    "customer_id": 1,
-    "tea_id": 7
-  }
-  ```
+  
   <br/>
   <details>
-    <summary><i> Successful Response:</i></summary>
+    <summary> Successful Request</summary>
+    <br/>
+    Request Body:
+    
+      ```
+      {
+        "title": "Monthly Tea is Fundamental",
+        "price": 9.99,
+        "frequency": 1,
+        "customer_id": 1,
+        "tea_id": 7
+      }
+      ```
+    
+   Response:
 
+    
     ```
     {
       "data": {
@@ -116,14 +121,28 @@ any changes. A new subscription for the same tea cannot be created.
       }
     }
     ```
+  **Status Code:** 201 :created
 
-    **Status Code:** 201 :created
-
-    The subscription has been successfully created. The response contains the newly created subscription details with the status set to "active" as a default.
+  The subscription has been successfully created. The response contains the newly created subscription details with the status set to "active" as a default.
+  <br/><br/>
   </details>
 
   <details>
-    <summary>Error Response:</summary>
+    <summary>Errored Request</summary>
+    <br/>
+    Request Body:
+
+    ```
+    { 
+        "customer_id": 99999999, 
+        "tea_id": 7,
+        "title": null, 
+        "price": 9.99, 
+        "frequency": 1
+    }
+    ```
+    
+  Response:
 
     ```
     {
@@ -135,9 +154,9 @@ any changes. A new subscription for the same tea cannot be created.
     }
     ```
 
-    **Status Code:** 422 :unprocessable_entity
+  **Status Code:** 422 :unprocessable_entity
 
-    The subscription has not been successfully created due to invalid IDs, invalid data types, or missing values. The response contains a detailed error message.
+  The subscription has not been successfully created due to invalid IDs, invalid data types, or missing values. The response contains a detailed error message.
   </details>
   <br/><br/><br/>
 </details>
@@ -147,7 +166,7 @@ any changes. A new subscription for the same tea cannot be created.
 <details>
   <summary> <b>PATCH api/v0/subscriptions/:id </b></summary><br/>
 
-  Description: Update a subscription status (Cancel a subscription).
+  Description: Update a subscription's attributes or status (Cancel a subscription).
 
   Requirements: 
   * *If updating data of the subscription*
@@ -161,18 +180,22 @@ any changes. A new subscription for the same tea cannot be created.
     - status [Integer] (Options: 0 = active, 1 = canceled)
 
   <br/><br/>
-  Cancellation Request Body:
-
-  ```
-  {
-    "status": 1
-  }
-  ```
+  
 
   <br/>
   <details>
-    <summary>Successful Response:</summary>
+    <summary>Successful Request</summary>
+    <br/>
+    Request Body:
 
+    ```
+    {
+      "status": 1
+    }
+    ```
+
+  Response:
+    
     ```
     {
       "data": {
@@ -190,14 +213,23 @@ any changes. A new subscription for the same tea cannot be created.
     }
     ```
 
-    **Status Code:** 200 :ok
+  **Status Code:** 200 :ok
 
-    The subscription has been successfully updated with the status "canceled".
+  The subscription has been successfully updated with the status "canceled".
+  <br/> <br/><br/>
   </details>
 
   <details>
-    <summary>Cancelation Error Response:</summary>
+    <summary>Errored Request - Invalid Attribute</summary>
+     <br/>
+    Request Body:
 
+    ```
+    {
+      "status": 9
+    }
+    ```
+  Response:
     ```
     {
       "errors":[
@@ -208,9 +240,37 @@ any changes. A new subscription for the same tea cannot be created.
     }
     ```
 
-    **Status Code:** 400 :bad_request 
+  **Status Code:** 400 :bad_request 
 
-    The subscription has not been updated as an invalid status enums (integer) was used. Only the values 0 (active) and 1 (canceled) are allowed. The response contains a detailed error message.
+  The subscription has not been updated as an invalid status enums (integer) was used. Only the values 0 (active) and 1 (canceled) are allowed. The response contains a detailed error message.
+  <br/><br/><br/>
+  </details>
+  
+
+  <details>
+    <summary>Errored Request - Invalid Subscription ID</summary>
+     <br/>
+    Request Body:
+
+    ```
+    {
+      "status": 9
+    }
+    ```
+  Response:
+    ```
+    {
+      "errors": [
+        {
+          "details": "Couldn't find Subscription with 'id'=999999999"
+        }
+      ]
+    }
+    ```
+
+  **Status Code:** 404 :not_found
+
+  The subscription has not been updated as an invalid subscription ID was used in the URL of the call. The response contains a detailed error message.
   </details>
   <br/><br/><br/>
 </details>
@@ -229,8 +289,8 @@ any changes. A new subscription for the same tea cannot be created.
 
   <br/>
   <details>
-    <summary>Successful Response:</summary>
-
+    <summary>Successful Response</summary>
+  
     ```
     {
       "data": [
@@ -274,13 +334,14 @@ any changes. A new subscription for the same tea cannot be created.
     }
     ```
 
-    **Status Code:** 200 :ok
+  **Status Code:** 200 :ok
 
-    The list of the customer's subscriptions has successfully been retrieved.
+  The list of the customer's subscriptions has successfully been retrieved.
+  <br/><br/><br/>
   </details>
 
   <details>
-    <summary>Successful Response (no subscriptions):</summary>
+    <summary>Successful Response (no subscriptions)</summary>
 
     ```
     {
@@ -288,13 +349,14 @@ any changes. A new subscription for the same tea cannot be created.
     }
     ```
 
-    **Status Code:** 200 :ok
+  **Status Code:** 200 :ok
 
-    The customer has no subscriptions, so the data is a blank array.
+  The customer has no subscriptions, so the data is a blank array.'
+  <br/><br/><br/>
   </details>
   
   <details>
-    <summary>Invalid customer ID Error Response:</summary>
+    <summary>Invalid customer ID Error Response</summary>
 
     ```
     {
@@ -306,9 +368,9 @@ any changes. A new subscription for the same tea cannot be created.
 }
     ```
 
-    **Status Code:** 404 :not_found 
+  **Status Code:** 404 :not_found 
 
-    The customer ID was not found, so no records could be returned. The response contains a detailed error message.
+  The customer ID was not found, so no records could be returned. The response contains a detailed error message.
   </details>
 </details>
 
